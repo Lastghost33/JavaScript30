@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Scoped CSS Variables and JS</title>
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
+
 <body>
   <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
 
@@ -22,7 +24,6 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
-
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -40,13 +41,46 @@
       margin-bottom: 50px;
     }
 
+    :root {
+      --base: #ffc600;
+      --padding: 10px;
+      --blur: 10px;
+    }
+
+    .hl {
+      color: var(--base);
+    }
+
+    img {
+      background: var(--base);
+      padding: var(--padding);
+      filter: blur(var(--blur));
+    }
+
     input {
       width: 100px;
     }
   </style>
 
   <script>
+    var root = document.querySelector(":root");
+
+    var spacing = document.getElementById("spacing");
+    var blured = document.getElementById("blur");
+    var base = document.getElementById("base");
+
+    console.log(blured.value)
+
+    async function changeStyle() {
+      root.style.setProperty('--base', `${base.value}`);
+      (root.style.setProperty('--blur', `${blured.value}${blured.dataset.sizing}`));
+      (root.style.setProperty('--padding', `${spacing.value}${blured.dataset.sizing}`));
+    }
+
+    window.addEventListener("change", changeStyle)
+    window.addEventListener("mousemove", changeStyle)
   </script>
 
 </body>
+
 </html>
